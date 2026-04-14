@@ -4,11 +4,11 @@ import { AppLayout } from './components/layout/AppLayout'
 import Login from './pages/Login'
 import Placeholder from './pages/Placeholder'
 import Fournisseurs from './pages/Fournisseurs'
+import Clients from './pages/Clients'
+import Tresorerie from './pages/Tresorerie'
 
-/** Redirige vers /login si pas connecté */
 function ProtectedRoute({ children }) {
   const { user, loading } = useAuth()
-
   if (loading) return (
     <div className="min-h-screen bg-[#F4F6FA] flex items-center justify-center">
       <div className="text-center space-y-3">
@@ -19,7 +19,6 @@ function ProtectedRoute({ children }) {
       </div>
     </div>
   )
-
   if (!user) return <Navigate to="/login" replace />
   return children
 }
@@ -27,10 +26,7 @@ function ProtectedRoute({ children }) {
 export default function App() {
   return (
     <Routes>
-      {/* Page de connexion */}
       <Route path="/login" element={<LoginRedirect />} />
-
-      {/* App protégée */}
       <Route
         element={
           <ProtectedRoute>
@@ -38,24 +34,23 @@ export default function App() {
           </ProtectedRoute>
         }
       >
-        {/* Phase 1 — Fondations ✓ (toutes les pages sont des placeholders pour l'instant) */}
-        <Route index                   element={<Placeholder />} />
-        <Route path="journal"          element={<Placeholder />} />
-        <Route path="chantiers"        element={<Placeholder />} />
-        <Route path="rd"               element={<Placeholder />} />
-        <Route path="clients"          element={<Placeholder />} />
-        <Route path="fournisseurs"     element={<Fournisseurs />} />
-        <Route path="equipe"           element={<Placeholder />} />
-        <Route path="tresorerie"       element={<Placeholder />} />
+        {/* Phase 2 — Pages migrées ✓ */}
+        <Route path="fournisseurs"  element={<Fournisseurs />} />
+        <Route path="clients"       element={<Clients />} />
+        <Route path="tresorerie"    element={<Tresorerie />} />
 
-        {/* 404 */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* Phase 3+ — Placeholders */}
+        <Route index                element={<Placeholder />} />
+        <Route path="journal"       element={<Placeholder />} />
+        <Route path="chantiers"     element={<Placeholder />} />
+        <Route path="rd"            element={<Placeholder />} />
+        <Route path="equipe"        element={<Placeholder />} />
+        <Route path="*"             element={<Navigate to="/" replace />} />
       </Route>
     </Routes>
   )
 }
 
-/** Redirige vers / si déjà connecté */
 function LoginRedirect() {
   const { user, loading } = useAuth()
   if (loading) return null
