@@ -5,17 +5,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist',
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor:    ['react', 'react-dom', 'react-router-dom'],
-          supabase:  ['@supabase/supabase-js'],
-          query:     ['@tanstack/react-query'],
-          charts:    ['chart.js', 'react-chartjs-2'],
-          pdf:       ['jspdf', 'jspdf-autotable'],
-        }
-      }
-    }
+    sourcemap: false
   }
 })
