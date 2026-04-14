@@ -3,6 +3,7 @@ import { useAuth } from './hooks/useAuth'
 import { AppLayout } from './components/layout/AppLayout'
 import Login from './pages/Login'
 import Placeholder from './pages/Placeholder'
+import Fournisseurs from './pages/Fournisseurs'
 
 /** Redirige vers /login si pas connecté */
 function ProtectedRoute({ children }) {
@@ -43,7 +44,7 @@ export default function App() {
         <Route path="chantiers"        element={<Placeholder />} />
         <Route path="rd"               element={<Placeholder />} />
         <Route path="clients"          element={<Placeholder />} />
-        <Route path="fournisseurs"     element={<Placeholder />} />
+        <Route path="fournisseurs"     element={<Fournisseurs />} />
         <Route path="equipe"           element={<Placeholder />} />
         <Route path="tresorerie"       element={<Placeholder />} />
 
