@@ -1,19 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   build: {
     outDir: 'dist',
-    sourcemap: false,
+    // Vite 8 utilise rolldown — manualChunks doit être une fonction
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor:    ['react', 'react-dom', 'react-router-dom'],
-          supabase:  ['@supabase/supabase-js'],
-          query:     ['@tanstack/react-query'],
-          charts:    ['chart.js', 'react-chartjs-2'],
-          pdf:       ['jspdf', 'jspdf-autotable'],
+        manualChunks(id) {
+          if (id.includes('@supabase'))        return 'supabase'
+          if (id.includes('@tanstack'))        return 'query'
+          if (id.includes('chart.js') || id.includes('react-chartjs')) return 'charts'
+          if (id.includes('node_modules'))     return 'vendor'
         }
       }
     }

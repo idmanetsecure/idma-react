@@ -1,23 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-/* ── Variables CSS globales — identiques au dashboard HTML ── */
+/* ── Thème IDMA — Tailwind v4 CSS-first ── */
+@theme {
+  --color-navy:        #0D2B5E;
+  --color-navy-dark:   #1E3A6E;
+  --color-navy-mid:    #4870B9;
+  --color-navy-light:  #EBF1FB;
+  --color-idma-blue:   #3B82F6;
+  --color-idma-green:  #10B981;
+  --color-idma-red:    #EF4444;
+  --color-idma-amber:  #F59E0B;
+  --color-idma-purple: #7C3AED;
+
+  --font-sans:    "DM Sans", system-ui, sans-serif;
+  --font-mono:    "DM Mono", monospace;
+  --font-display: "Syne", sans-serif;
+}
+
+/* ── Variables CSS globales ── */
 :root {
-  --navy:    #0D2B5E;
-  --navy-dark: #1E3A6E;
-  --navy-mid:  #4870B9;
-  --navy-light:#EBF1FB;
   --bg:      #F4F6FA;
   --card:    #FFFFFF;
   --border:  #E2E8F0;
   --border2: #F1F5F9;
-  --blue:    #3B82F6;
-  --cyan:    #06B6D4;
-  --green:   #10B981;
-  --red:     #EF4444;
-  --amber:   #F59E0B;
-  --purple:  #7C3AED;
   --text:    #1E293B;
   --text2:   #475569;
   --muted:   #64748B;
@@ -25,35 +30,31 @@
   --muted3:  #CBD5E1;
 }
 
-/* ── Reset & base ── */
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── Scrollbar personnalisée ── */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--muted3); border-radius: 99px; }
 
 /* ── Animations ── */
-@keyframes pulse { 0%,100% { opacity:1 } 50% { opacity:.5 } }
-@keyframes slideIn { from { transform:translateX(-100%) } to { transform:translateX(0) } }
 @keyframes fadeIn  { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
 @keyframes toastIn { from { opacity:0; transform:translateX(100%) } to { opacity:1; transform:translateX(0) } }
+@keyframes shimmer { 0% { background-position:200% 0 } 100% { background-position:-200% 0 } }
 
 .animate-fade-in  { animation: fadeIn  .2s ease; }
 .animate-toast-in { animation: toastIn .3s cubic-bezier(.21,1.02,.73,1); }
 
-/* ── Skeleton loading ── */
+/* ── Skeleton ── */
 .skeleton {
-  background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+  background: linear-gradient(90deg,#E2E8F0 25%,#F1F5F9 50%,#E2E8F0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 6px;
 }
-@keyframes shimmer { 0% { background-position: 200% 0 } 100% { background-position: -200% 0 } }
